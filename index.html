@@ -3,14 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <title>Create a rotating globe</title>
-    <meta
-      name="viewport"
-      content="initial-scale=1,maximum-scale=1,user-scalable=no"
-    />
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
     <style>
       body {
@@ -36,8 +30,7 @@
   <body>
     <div id="map"></div>
     <script>
-      mapboxgl.accessToken =
-        "pk.eyJ1IjoiaWduYXNpdGVtcG8iLCJhIjoiY2xzdnV3Ym8yMmZrbjJqbnNsbDFtanc1MSJ9.-BZ28ULcuYnHvpsCeHDYrw";
+      mapboxgl.accessToken = "pk.eyJ1IjoiaWduYXNpdGVtcG8iLCJhIjoiY2xzdnV3Ym8yMmZrbjJqbnNsbDFtanc1MSJ9.-BZ28ULcuYnHvpsCeHDYrw";
 
       // Generate random latitude and longitude
       function getRandomLatLng() {
@@ -127,6 +120,10 @@
       map.on("moveend", () => {
         spinGlobe();
       });
+
+      // JavaScript to hide Mapbox logo and attribution text
+      document.querySelector('.mapboxgl-ctrl-logo').style.display = 'none';
+      document.querySelector('.mapboxgl-ctrl-attrib').style.display = 'none';
 
       spinGlobe();
     </script>
