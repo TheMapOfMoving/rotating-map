@@ -91,38 +91,34 @@
         container: "map",
         style: "mapbox://styles/ignasitempo/clwqlkmgj012i01ny7pqk6fa6",
         projection: "globe", // Display the map as a globe, since satellite-v9 defaults to Mercator
-        zoom: 1.5,
         center: randomCenter,
-        minZoom: 2.2, // Initial minZoom, will be adjusted dynamically
+        minZoom: 1.0, // Set a base minZoom
         maxZoom: 22,
       });
 
       // Function to update minZoom and maxZoom based on window width
       function updateZoomLevels() {
         const width = window.innerWidth;
-        const height = window.innerHeight;
+        let minZoom;
 
         if (width < 800) {
-          map.setMinZoom(1.0);
+          minZoom = 1.0;
           map.setMaxZoom(20);
-          map.setZoom(Math.max(1.0, map.getZoom()));
         } else if (width < 1000) {
-          map.setMinZoom(1.5);
+          minZoom = 1.5;
           map.setMaxZoom(21);
-          map.setZoom(Math.max(1.5, map.getZoom()));
         } else if (width < 1200) {
-          map.setMinZoom(2.0);
+          minZoom = 2.0;
           map.setMaxZoom(22);
-          map.setZoom(Math.max(2.0, map.getZoom()));
         } else {
-          map.setMinZoom(2.2);
+          minZoom = 2.2;
           map.setMaxZoom(22);
-          map.setZoom(Math.max(2.2, map.getZoom()));
         }
 
-        // Adjust the zoom level based on the height to ensure the globe fits
-        const zoomLevel = Math.log2(height / 256) + 1; // 256 is the default tile size
-        map.setZoom(zoomLevel);
+        map.setMinZoom(minZoom);
+
+        // Explicitly set the zoom level to ensure it is fully zoomed out
+        map.setZoom(minZoom);
       }
 
       // Initial call to set the minZoom and maxZoom
@@ -139,6 +135,9 @@
           "space-color": "rgb(255, 255, 255)", // Background color
           "star-intensity": 0, // Background star brightness (default 0.35 at low zooms)
         });
+
+        // Ensure the map is fully zoomed out on initial load
+        updateZoomLevels();
       });
 
       // The following values can be changed to control rotation speed:
