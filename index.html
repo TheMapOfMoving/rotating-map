@@ -96,6 +96,11 @@
         maxZoom: 22,
       });
 
+      // Function to check if the device is a mobile screen
+      function isMobileScreen() {
+        return window.innerWidth < 800;
+      }
+
       // Function to update minZoom and maxZoom based on window width
       function updateZoomLevels() {
         const width = window.innerWidth;
@@ -146,7 +151,7 @@
       const slowSpinZoom = 3; // Rotate at intermediate speeds between zoom levels 3 and 5.
 
       let userInteracting = false;
-      let spinEnabled = true;
+      let spinEnabled = !isMobileScreen(); // Disable spin for mobile screens
 
       function spinGlobe() {
         const zoom = map.getZoom();
@@ -197,8 +202,11 @@
 
       spinGlobe();
 
-      // Event listener for window resize to update zoom levels
-      window.addEventListener("resize", updateZoomLevels);
+      // Event listener for window resize to update zoom levels and spinEnabled status
+      window.addEventListener("resize", () => {
+        updateZoomLevels();
+        spinEnabled = !isMobileScreen(); // Update spinEnabled based on the new window size
+      });
     </script>
   </body>
 </html>
