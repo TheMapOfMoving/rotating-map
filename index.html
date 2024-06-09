@@ -170,42 +170,48 @@
         }
       }
 
-      // Pause spinning on interaction
-      map.on("mousedown", () => {
+      // Function to handle user interaction start
+      function onInteractionStart() {
         userInteracting = true;
-      });
+      }
+
+      // Function to handle user interaction end
+      function onInteractionEnd() {
+        userInteracting = false;
+        if (!isMobileScreen()) {
+          spinGlobe();
+        }
+      }
+
+      // Pause spinning on interaction
+      map.on("mousedown", onInteractionStart);
 
       // Restart spinning the globe when interaction is complete
-      map.on("mouseup", () => {
-        userInteracting = false;
-        spinGlobe();
-      });
+      map.on("mouseup", onInteractionEnd);
 
       // These events account for cases where the mouse has moved off the map, so 'mouseup' will not be fired.
-      map.on("dragend", () => {
-        userInteracting = false;
-        spinGlobe();
-      });
-      map.on("pitchend", () => {
-        userInteracting = false;
-        spinGlobe();
-      });
-      map.on("rotateend", () => {
-        userInteracting = false;
-        spinGlobe();
-      });
+      map.on("dragend", onInteractionEnd);
+      map.on("pitchend", onInteractionEnd);
+      map.on("rotateend", onInteractionEnd);
 
       // When animation is complete, start spinning if there is no ongoing interaction
       map.on("moveend", () => {
-        spinGlobe();
+        if (!isMobileScreen() && !userInteracting) {
+          spinGlobe();
+        }
       });
 
-      spinGlobe();
+      if (!isMobileScreen()) {
+        spinGlobe();
+      }
 
       // Event listener for window resize to update zoom levels and spinEnabled status
       window.addEventListener("resize", () => {
         updateZoomLevels();
         spinEnabled = !isMobileScreen(); // Update spinEnabled based on the new window size
+        if (!spinEnabled) {
+          userInteracting = true; // Stop spinning if on mobile screen
+        }
       });
     </script>
   </body>
