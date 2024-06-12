@@ -13,12 +13,15 @@
     />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+
       body {
         margin: 0;
         padding: 0;
         display: flex;
         flex-direction: row;
         height: 100vh;
+        font-family: "Inter", sans-serif;
       }
       #map {
         flex: 1;
@@ -30,40 +33,130 @@
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
         padding: 20px;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
       }
-      /* Hide the Mapbox logo */
       .mapboxgl-ctrl-logo {
         display: none !important;
       }
-      /* Hide the attribution text */
       .mapboxgl-ctrl-attrib {
         display: none !important;
       }
-
-      /* Media queries for responsiveness */
+      .filter-category {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .filter-row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .filter-column {
+        flex: 0 0 48%;
+      }
+      h2,
+      h3 {
+        margin: 0;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      h2 {
+        color: white;
+        background-color: black;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: uppercase;
+        margin: 0;
+      }
+      .arrow-down {
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        margin-right: 10px;
+      }
+      .filter-category input[type="text"],
+      .filter-category select {
+        width: 100%;
+        padding: 5px;
+        margin: 5px 0;
+        box-sizing: border-box;
+        border: 1px solid black;
+        border-radius: 5px;
+      }
+      .filter-category input[type="text"]:focus,
+      .filter-category select:focus {
+        outline-color: black;
+      }
+      .filter-category input[type="checkbox"],
+      .filter-category input[type="radio"] {
+        margin-right: 5px;
+        accent-color: black;
+      }
+      input[type="range"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 100%;
+        height: 5px;
+        background: black;
+        outline: none;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 15px;
+        height: 15px;
+        background: black;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        background: black;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+      .slider-labels {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 5px;
+      }
+      .filter-category input[type="checkbox"] + input[type="text"] {
+        width: calc(100% - 30px);
+        margin-left: 5px;
+      }
       @media (max-width: 1200px) {
         .side-menu {
           width: 35%;
         }
       }
-
       @media (max-width: 1000px) {
         .side-menu {
           width: 40%;
         }
       }
-
       @media (max-width: 800px) {
         body {
           flex-direction: column;
         }
         #map {
           width: 100%;
-          height: 50vh; /* Adjust height to 50% of the viewport height */
+          height: 50vh;
         }
         .side-menu {
           width: 100%;
-          height: 50vh; /* Adjust height to 50% of the viewport height */
+          height: 50vh;
         }
       }
     </style>
@@ -71,32 +164,165 @@
   <body>
     <div id="map"></div>
     <div class="side-menu">
-      <h2>Side Menu</h2>
-      <p>Content goes here...</p>
+      <div class="filter-category" style="padding: 0; background-color: black">
+        <h2 style="margin: 0">THE MAP OF MOVING <i class="arrow-down"></i></h2>
+      </div>
+      <div class="filter-row">
+        <div class="filter-column">
+          <div class="filter-category">
+            <h3>Origin</h3>
+            <input type="text" id="origin" placeholder="Search..." />
+          </div>
+          <div class="filter-category">
+            <h3>Destination</h3>
+            <input type="text" id="destination" placeholder="Search..." />
+          </div>
+          <div class="filter-category">
+            <h3>Gender</h3>
+            <label
+              ><input type="checkbox" name="gender" value="woman" />
+              Woman</label
+            ><br />
+            <label
+              ><input type="checkbox" name="gender" value="man" /> Man</label
+            ><br />
+            <label
+              ><input type="checkbox" name="gender" value="non-normative" />
+              Non-normative</label
+            ><br />
+            <label
+              ><input type="checkbox" name="gender" value="other" />
+              <input
+                type="text"
+                id="gender-other"
+                placeholder="Other"
+                style="width: 60%"
+            /></label>
+          </div>
+          <div class="filter-category">
+            <h3>Age</h3>
+            <input type="range" id="age" min="0" max="100" step="1" />
+            <div class="slider-labels">
+              <span>0</span>
+              <span>100</span>
+            </div>
+          </div>
+          <div class="filter-category">
+            <h3>Time Period</h3>
+            <input
+              type="range"
+              id="time-period"
+              min="1997"
+              max="2024"
+              step="1"
+            />
+            <div class="slider-labels">
+              <span>1997</span>
+              <span>2024</span>
+            </div>
+          </div>
+          <div class="filter-category">
+            <h3>Transport</h3>
+            <label><input type="checkbox" value="plane" /> Plane</label><br />
+            <label><input type="checkbox" value="ship" /> Ship</label><br />
+            <label><input type="checkbox" value="boat" /> Boat</label><br />
+            <label><input type="checkbox" value="train" /> Train</label><br />
+            <label><input type="checkbox" value="bus" /> Bus</label><br />
+            <label><input type="checkbox" value="car" /> Car</label><br />
+            <label
+              ><input type="checkbox" value="motorcycle" /> Motorcycle</label
+            ><br />
+            <label><input type="checkbox" value="bicycle" /> Bicycle</label
+            ><br />
+            <label><input type="checkbox" value="walking" /> Walking</label>
+          </div>
+        </div>
+        <div class="filter-column">
+          <div class="filter-category">
+            <h3>Environmental</h3>
+            <label><input type="checkbox" value="pollution" /> Pollution</label
+            ><br />
+            <label><input type="checkbox" value="drought" /> Drought</label
+            ><br />
+            <label><input type="checkbox" value="flooding" /> Flooding</label
+            ><br />
+            <label><input type="checkbox" value="hurricane" /> Hurricane</label
+            ><br />
+            <label
+              ><input type="checkbox" value="earthquake" /> Earthquake</label
+            ><br />
+            <label><input type="checkbox" value="tsunami" /> Tsunami</label
+            ><br />
+            <label
+              ><input type="checkbox" value="temperature-rise" /> Temperature
+              rise</label
+            >
+          </div>
+          <div class="filter-category">
+            <h3>Political</h3>
+            <label><input type="checkbox" value="gender" /> Gender</label><br />
+            <label><input type="checkbox" value="culture" /> Culture</label
+            ><br />
+            <label><input type="checkbox" value="ethnicity" /> Ethnicity</label
+            ><br />
+            <label><input type="checkbox" value="religion" /> Religion</label
+            ><br />
+            <label><input type="checkbox" value="race" /> Race</label><br />
+            <label
+              ><input type="checkbox" value="political-belief" /> Political
+              belief</label
+            ><br />
+            <label
+              ><input type="checkbox" value="nationality" /> Nationality</label
+            >
+          </div>
+          <div class="filter-category">
+            <h3>Economic</h3>
+            <label
+              ><input type="checkbox" value="job" /> Job / Higher wages</label
+            ><br />
+            <label
+              ><input type="checkbox" value="career-enhancement" /> Career
+              enhancement</label
+            ><br />
+            <label><input type="checkbox" value="education" /> Education</label
+            ><br />
+            <label
+              ><input type="checkbox" value="better-healthcare" /> Better
+              healthcare</label
+            >
+          </div>
+          <div class="filter-category">
+            <h3>Social</h3>
+            <label><input type="checkbox" value="family" /> Family</label><br />
+            <label><input type="checkbox" value="love" /> Love</label><br />
+            <label><input type="checkbox" value="friends" /> Friends</label>
+          </div>
+        </div>
+      </div>
+      <div class="filter-category">
+        <h3>Share Your Migration Experience</h3>
+        <button id="share-experience">Share</button>
+      </div>
+      <div class="filter-category">
+        <h3>?</h3>
+        <p>Help and information</p>
+      </div>
     </div>
     <script>
       mapboxgl.accessToken =
         "pk.eyJ1IjoiaWduYXNpdGVtcG8iLCJhIjoiY2xzdnV3Ym8yMmZrbjJqbnNsbDFtanc1MSJ9.-BZ28ULcuYnHvpsCeHDYrw";
 
-      // Generate random latitude and longitude
-      function getRandomLatLng() {
-        const lat = (Math.random() * 180 - 90).toFixed(4); // Latitude between -90 and 90
-        const lng = (Math.random() * 360 - 180).toFixed(4); // Longitude between -180 and 180
-        return [parseFloat(lng), parseFloat(lat)];
-      }
-
-      const randomCenter = getRandomLatLng();
-
       const map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/ignasitempo/clwqlkmgj012i01ny7pqk6fa6",
-        projection: "globe", // Display the map as a globe, since satellite-v9 defaults to Mercator
-        center: randomCenter,
-        minZoom: 1.0, // Set a base minZoom
+        projection: "globe",
+        center: [0, 0], // Initial center of the map
+        zoom: 2.0, // Ensure initial zoom is set
+        minZoom: 1.0,
         maxZoom: 22,
       });
 
-      // Function to update minZoom and maxZoom based on window width
       function updateZoomLevels() {
         const width = window.innerWidth;
         let minZoom;
@@ -116,34 +342,103 @@
         }
 
         map.setMinZoom(minZoom);
-
-        // Explicitly set the zoom level to ensure it is fully zoomed out
         map.setZoom(minZoom);
       }
 
-      // Initial call to set the minZoom and maxZoom
       updateZoomLevels();
 
-      // Add navigation control to the bottom-left corner
       map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
 
       map.on("style.load", () => {
         map.setFog({
-          color: "rgb(255, 255, 255)", // Lower atmosphere
-          "high-color": "rgb(255, 255, 255)", // Upper atmosphere
-          "horizon-blend": 0.02, // Atmosphere thickness (default 0.2 at low zooms)
-          "space-color": "rgb(255, 255, 255)", // Background color
-          "star-intensity": 0, // Background star brightness (default 0.35 at low zooms)
+          color: "rgb(255, 255, 255)",
+          "high-color": "rgb(255, 255, 255)",
+          "horizon-blend": 0.02,
+          "space-color": "rgb(255, 255, 255)",
+          "star-intensity": 0,
         });
 
-        // Ensure the map is fully zoomed out on initial load
         updateZoomLevels();
+
+        const geojsonURL =
+          "https://raw.githubusercontent.com/TheMapOfMoving/rotating-map/main/geojson.json";
+
+        fetch(geojsonURL)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("GeoJSON data loaded:", data);
+
+            const getColor = (feature) => {
+              if (feature.properties.political_reason) return "#E5387A";
+              if (feature.properties.environmental_reason) return "#31BCBC";
+              if (feature.properties.economic_reason) return "#5058EF";
+              if (feature.properties.social_reason) return "#F7960B";
+              return "#000"; // default color
+            };
+
+            data.features.forEach((feature) => {
+              feature.properties.color = getColor(feature);
+            });
+
+            map.addSource("geojson-source", {
+              type: "geojson",
+              data: data,
+            });
+
+            // Add a layer for the lines
+            map.addLayer({
+              id: "route",
+              type: "line",
+              source: "geojson-source",
+              layout: {
+                "line-join": "round",
+                "line-cap": "round",
+              },
+              paint: {
+                "line-color": ["get", "color"],
+                "line-width": 2,
+              },
+            });
+
+            // Add a layer for the origin circles (stroke only)
+            map.addLayer({
+              id: "origin-circles",
+              type: "circle",
+              source: "geojson-source",
+              filter: ["==", ["get", "role"], "origin"], // Assuming there's a "role" property to distinguish origin
+              paint: {
+                "circle-radius": 8,
+                "circle-color": "transparent",
+                "circle-stroke-color": ["get", "color"],
+                "circle-stroke-width": 2,
+              },
+            });
+
+            // Add a layer for the destination circles (filled)
+            map.addLayer({
+              id: "destination-circles",
+              type: "circle",
+              source: "geojson-source",
+              filter: ["==", ["get", "role"], "destination"], // Assuming there's a "role" property to distinguish destination
+              paint: {
+                "circle-radius": 8,
+                "circle-color": ["get", "color"],
+              },
+            });
+          })
+          .catch((error) => {
+            console.error("Error loading GeoJSON:", error);
+          });
       });
 
-      // The following values can be changed to control rotation speed:
-      const secondsPerRevolution = 120; // At low zooms, complete a revolution every two minutes.
-      const maxSpinZoom = 5; // Above zoom level 5, do not rotate.
-      const slowSpinZoom = 3; // Rotate at intermediate speeds between zoom levels 3 and 5.
+      const secondsPerRevolution = 120;
+      const maxSpinZoom = 5;
+      const slowSpinZoom = 3;
 
       let userInteracting = false;
       let spinEnabled = true;
@@ -153,30 +448,24 @@
         if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
           let distancePerSecond = 360 / secondsPerRevolution;
           if (zoom > slowSpinZoom) {
-            // Slow spinning at higher zooms
             const zoomDif = (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
             distancePerSecond *= zoomDif;
           }
           const center = map.getCenter();
           center.lng -= distancePerSecond;
-          // Smoothly animate the map over one second.
-          // When this animation is complete, it calls a 'moveend' event.
           map.easeTo({ center, duration: 1000, easing: (n) => n });
         }
       }
 
-      // Pause spinning on interaction
       map.on("mousedown", () => {
         userInteracting = true;
       });
 
-      // Restart spinning the globe when interaction is complete
       map.on("mouseup", () => {
         userInteracting = false;
         spinGlobe();
       });
 
-      // These events account for cases where the mouse has moved off the map, so 'mouseup' will not be fired.
       map.on("dragend", () => {
         userInteracting = false;
         spinGlobe();
@@ -190,14 +479,12 @@
         spinGlobe();
       });
 
-      // When animation is complete, start spinning if there is no ongoing interaction
       map.on("moveend", () => {
         spinGlobe();
       });
 
       spinGlobe();
 
-      // Event listener for window resize to update zoom levels
       window.addEventListener("resize", updateZoomLevels);
     </script>
   </body>
