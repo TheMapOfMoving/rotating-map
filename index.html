@@ -11,155 +11,9 @@
       href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="styles.css" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
-
-      body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: row;
-        height: 100vh;
-        font-family: "Inter", sans-serif;
-      }
-      #map {
-        flex: 1;
-        position: relative;
-      }
-      .side-menu {
-        width: 30%;
-        background-color: #f4f4f4;
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-      }
-      .mapboxgl-ctrl-logo {
-        display: none !important;
-      }
-      .mapboxgl-ctrl-attrib {
-        display: none !important;
-      }
-      .filter-category {
-        margin-bottom: 20px;
-        padding: 10px;
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .filter-row {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-      }
-      .filter-column {
-        flex: 0 0 48%;
-      }
-      h2,
-      h3 {
-        margin: 0;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-      }
-      h2 {
-        color: white;
-        background-color: black;
-        padding: 10px;
-        border-radius: 5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-transform: uppercase;
-        margin: 0;
-      }
-      .arrow-down {
-        border: solid white;
-        border-width: 0 3px 3px 0;
-        display: inline-block;
-        padding: 3px;
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-        margin-right: 10px;
-      }
-      .filter-category input[type="text"],
-      .filter-category select {
-        width: 100%;
-        padding: 5px;
-        margin: 5px 0;
-        box-sizing: border-box;
-        border: 1px solid black;
-        border-radius: 5px;
-      }
-      .filter-category input[type="text"]:focus,
-      .filter-category select:focus {
-        outline-color: black;
-      }
-      .filter-category input[type="checkbox"],
-      .filter-category input[type="radio"] {
-        margin-right: 5px;
-        accent-color: black;
-      }
-      input[type="range"] {
-        appearance: none;
-        -webkit-appearance: none;
-        width: 100%;
-        height: 5px;
-        background: black;
-        outline: none;
-        opacity: 0.7;
-        transition: opacity 0.2s;
-      }
-      input[type="range"]::-webkit-slider-thumb {
-        appearance: none;
-        -webkit-appearance: none;
-        width: 15px;
-        height: 15px;
-        background: black;
-        cursor: pointer;
-        border-radius: 50%;
-      }
-      input[type="range"]::-moz-range-thumb {
-        width: 15px;
-        height: 15px;
-        background: black;
-        cursor: pointer;
-        border-radius: 50%;
-      }
-      .slider-labels {
-        display: flex;
-        justify-content: space-between;
-        padding-top: 5px;
-      }
-      .filter-category input[type="checkbox"] + input[type="text"] {
-        width: calc(100% - 30px);
-        margin-left: 5px;
-      }
-      @media (max-width: 1200px) {
-        .side-menu {
-          width: 35%;
-        }
-      }
-      @media (max-width: 1000px) {
-        .side-menu {
-          width: 40%;
-        }
-      }
-      @media (max-width: 800px) {
-        body {
-          flex-direction: column;
-        }
-        #map {
-          width: 100%;
-          height: 50vh;
-        }
-        .side-menu {
-          width: 100%;
-          height: 50vh;
-        }
-      }
-    </style>
+    <script type="module" src="main.js"></script>
   </head>
   <body>
     <div id="map"></div>
@@ -171,40 +25,78 @@
         <div class="filter-column">
           <div class="filter-category">
             <h3>Origin</h3>
-            <input type="text" id="origin" placeholder="Search..." />
+            <input type="text" id="origin" placeholder="Search Origin..." />
           </div>
           <div class="filter-category">
             <h3>Destination</h3>
-            <input type="text" id="destination" placeholder="Search..." />
+            <input
+              type="text"
+              id="destination"
+              placeholder="Search Destination..."
+            />
           </div>
           <div class="filter-category">
             <h3>Gender</h3>
             <label
-              ><input type="checkbox" name="gender" value="woman" />
+              ><input
+                type="checkbox"
+                id="gender-woman"
+                name="gender"
+                value="woman"
+              />
               Woman</label
             ><br />
             <label
-              ><input type="checkbox" name="gender" value="man" /> Man</label
+              ><input
+                type="checkbox"
+                id="gender-man"
+                name="gender"
+                value="man"
+              />
+              Man</label
             ><br />
             <label
-              ><input type="checkbox" name="gender" value="non-normative" />
+              ><input
+                type="checkbox"
+                id="gender-non-normative"
+                name="gender"
+                value="non-normative"
+              />
               Non-normative</label
             ><br />
             <label
-              ><input type="checkbox" name="gender" value="other" />
-              <input
-                type="text"
+              ><input
+                type="checkbox"
                 id="gender-other"
+                name="gender"
+                value="other" /><input
+                type="text"
+                id="gender-other-text"
                 placeholder="Other"
                 style="width: 60%"
             /></label>
           </div>
           <div class="filter-category">
             <h3>Age</h3>
-            <input type="range" id="age" min="0" max="100" step="1" />
+            <input
+              type="range"
+              id="age-min"
+              min="0"
+              max="100"
+              step="1"
+              value="0"
+            />
+            <input
+              type="range"
+              id="age-max"
+              min="0"
+              max="100"
+              step="1"
+              value="100"
+            />
             <div class="slider-labels">
-              <span>0</span>
-              <span>100</span>
+              <span id="age-min-label">0</span>
+              <span id="age-max-label">100</span>
             </div>
           </div>
           <div class="filter-category">
@@ -223,269 +115,176 @@
           </div>
           <div class="filter-category">
             <h3>Transport</h3>
-            <label><input type="checkbox" value="plane" /> Plane</label><br />
-            <label><input type="checkbox" value="ship" /> Ship</label><br />
-            <label><input type="checkbox" value="boat" /> Boat</label><br />
-            <label><input type="checkbox" value="train" /> Train</label><br />
-            <label><input type="checkbox" value="bus" /> Bus</label><br />
-            <label><input type="checkbox" value="car" /> Car</label><br />
             <label
-              ><input type="checkbox" value="motorcycle" /> Motorcycle</label
+              ><input type="checkbox" name="transport" value="plane" />
+              Plane</label
             ><br />
-            <label><input type="checkbox" value="bicycle" /> Bicycle</label
+            <label
+              ><input type="checkbox" name="transport" value="ship" />
+              Ship</label
             ><br />
-            <label><input type="checkbox" value="walking" /> Walking</label>
+            <label
+              ><input type="checkbox" name="transport" value="boat" />
+              Boat</label
+            ><br />
+            <label
+              ><input type="checkbox" name="transport" value="train" />
+              Train</label
+            ><br />
+            <label
+              ><input type="checkbox" name="transport" value="bus" /> Bus</label
+            ><br />
+            <label
+              ><input type="checkbox" name="transport" value="car" /> Car</label
+            ><br />
+            <label
+              ><input type="checkbox" name="transport" value="motorcycle" />
+              Motorcycle</label
+            ><br />
+            <label
+              ><input type="checkbox" name="transport" value="bicycle" />
+              Bicycle</label
+            ><br />
+            <label
+              ><input type="checkbox" name="transport" value="walking" />
+              Walking</label
+            >
           </div>
         </div>
         <div class="filter-column">
           <div class="filter-category">
             <h3>Environmental</h3>
-            <label><input type="checkbox" value="pollution" /> Pollution</label
-            ><br />
-            <label><input type="checkbox" value="drought" /> Drought</label
-            ><br />
-            <label><input type="checkbox" value="flooding" /> Flooding</label
-            ><br />
-            <label><input type="checkbox" value="hurricane" /> Hurricane</label
+            <label
+              ><input type="checkbox" name="environmental" value="pollution" />
+              Pollution</label
             ><br />
             <label
-              ><input type="checkbox" value="earthquake" /> Earthquake</label
-            ><br />
-            <label><input type="checkbox" value="tsunami" /> Tsunami</label
+              ><input type="checkbox" name="environmental" value="drought" />
+              Drought</label
             ><br />
             <label
-              ><input type="checkbox" value="temperature-rise" /> Temperature
-              rise</label
+              ><input type="checkbox" name="environmental" value="flooding" />
+              Flooding</label
+            ><br />
+            <label
+              ><input type="checkbox" name="environmental" value="hurricane" />
+              Hurricane</label
+            ><br />
+            <label
+              ><input type="checkbox" name="environmental" value="earthquake" />
+              Earthquake</label
+            ><br />
+            <label
+              ><input type="checkbox" name="environmental" value="tsunami" />
+              Tsunami</label
+            ><br />
+            <label
+              ><input
+                type="checkbox"
+                name="environmental"
+                value="temperature-rise"
+              />
+              Temperature rise</label
             >
           </div>
           <div class="filter-category">
             <h3>Political</h3>
-            <label><input type="checkbox" value="gender" /> Gender</label><br />
-            <label><input type="checkbox" value="culture" /> Culture</label
-            ><br />
-            <label><input type="checkbox" value="ethnicity" /> Ethnicity</label
-            ><br />
-            <label><input type="checkbox" value="religion" /> Religion</label
-            ><br />
-            <label><input type="checkbox" value="race" /> Race</label><br />
             <label
-              ><input type="checkbox" value="political-belief" /> Political
-              belief</label
+              ><input type="checkbox" name="political" value="gender" />
+              Gender</label
             ><br />
             <label
-              ><input type="checkbox" value="nationality" /> Nationality</label
+              ><input type="checkbox" name="political" value="culture" />
+              Culture</label
+            ><br />
+            <label
+              ><input type="checkbox" name="political" value="ethnicity" />
+              Ethnicity</label
+            ><br />
+            <label
+              ><input type="checkbox" name="political" value="religion" />
+              Religion</label
+            ><br />
+            <label
+              ><input type="checkbox" name="political" value="race" />
+              Race</label
+            ><br />
+            <label
+              ><input
+                type="checkbox"
+                name="political"
+                value="political-belief"
+              />
+              Political belief</label
+            ><br />
+            <label
+              ><input type="checkbox" name="political" value="nationality" />
+              Nationality</label
             >
           </div>
           <div class="filter-category">
             <h3>Economic</h3>
             <label
-              ><input type="checkbox" value="job" /> Job / Higher wages</label
+              ><input type="checkbox" name="economic" value="job" /> Job /
+              Higher wages</label
             ><br />
             <label
-              ><input type="checkbox" value="career-enhancement" /> Career
-              enhancement</label
-            ><br />
-            <label><input type="checkbox" value="education" /> Education</label
+              ><input
+                type="checkbox"
+                name="economic"
+                value="career-enhancement"
+              />
+              Career enhancement</label
             ><br />
             <label
-              ><input type="checkbox" value="better-healthcare" /> Better
-              healthcare</label
+              ><input type="checkbox" name="economic" value="education" />
+              Education</label
+            ><br />
+            <label
+              ><input
+                type="checkbox"
+                name="economic"
+                value="better-healthcare"
+              />
+              Better healthcare</label
             >
           </div>
           <div class="filter-category">
             <h3>Social</h3>
-            <label><input type="checkbox" value="family" /> Family</label><br />
-            <label><input type="checkbox" value="love" /> Love</label><br />
-            <label><input type="checkbox" value="friends" /> Friends</label>
+            <label
+              ><input type="checkbox" name="social" value="family" />
+              Family</label
+            ><br />
+            <label
+              ><input type="checkbox" name="social" value="love" /> Love</label
+            ><br />
+            <label
+              ><input type="checkbox" name="social" value="friends" />
+              Friends</label
+            >
           </div>
         </div>
       </div>
-      <div class="filter-category">
-        <h3>Share Your Migration Experience</h3>
-        <button id="share-experience">Share</button>
+      <div class="trip-details" style="display: none"></div>
+      <div class="filter-category" id="share-experience-box">
+        <h3 id="share-experience">
+          SHARE YOUR MIGRATION EXPERIENCE <span class="plus-icon">+</span>
+        </h3>
       </div>
-      <div class="filter-category">
+      <div class="filter-category help-category">
         <h3>?</h3>
         <p>Help and information</p>
       </div>
     </div>
-    <script>
-      mapboxgl.accessToken =
-        "pk.eyJ1IjoiaWduYXNpdGVtcG8iLCJhIjoiY2xzdnV3Ym8yMmZrbjJqbnNsbDFtanc1MSJ9.-BZ28ULcuYnHvpsCeHDYrw";
-
-      const map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/ignasitempo/clwqlkmgj012i01ny7pqk6fa6",
-        projection: "globe",
-        center: [0, 0], // Initial center of the map
-        zoom: 2.0, // Ensure initial zoom is set
-        minZoom: 1.0,
-        maxZoom: 22,
-      });
-
-      function updateZoomLevels() {
-        const width = window.innerWidth;
-        let minZoom;
-
-        if (width < 800) {
-          minZoom = 1.0;
-          map.setMaxZoom(20);
-        } else if (width < 1000) {
-          minZoom = 1.5;
-          map.setMaxZoom(21);
-        } else if (width < 1200) {
-          minZoom = 2.0;
-          map.setMaxZoom(22);
-        } else {
-          minZoom = 2.2;
-          map.setMaxZoom(22);
-        }
-
-        map.setMinZoom(minZoom);
-        map.setZoom(minZoom);
-      }
-
-      updateZoomLevels();
-
-      map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
-
-      map.on("style.load", () => {
-        map.setFog({
-          color: "rgb(255, 255, 255)",
-          "high-color": "rgb(255, 255, 255)",
-          "horizon-blend": 0.02,
-          "space-color": "rgb(255, 255, 255)",
-          "star-intensity": 0,
-        });
-
-        updateZoomLevels();
-
-        const geojsonURL =
-          "https://raw.githubusercontent.com/TheMapOfMoving/rotating-map/main/geojson.json";
-
-        fetch(geojsonURL)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log("GeoJSON data loaded:", data);
-
-            const getColor = (feature) => {
-              if (feature.properties.political_reason) return "#E5387A";
-              if (feature.properties.environmental_reason) return "#31BCBC";
-              if (feature.properties.economic_reason) return "#5058EF";
-              if (feature.properties.social_reason) return "#F7960B";
-              return "#000"; // default color
-            };
-
-            data.features.forEach((feature) => {
-              feature.properties.color = getColor(feature);
-            });
-
-            map.addSource("geojson-source", {
-              type: "geojson",
-              data: data,
-            });
-
-            // Add a layer for the lines
-            map.addLayer({
-              id: "route",
-              type: "line",
-              source: "geojson-source",
-              layout: {
-                "line-join": "round",
-                "line-cap": "round",
-              },
-              paint: {
-                "line-color": ["get", "color"],
-                "line-width": 2,
-              },
-            });
-
-            // Add a layer for the origin circles (stroke only)
-            map.addLayer({
-              id: "origin-circles",
-              type: "circle",
-              source: "geojson-source",
-              filter: ["==", ["get", "role"], "origin"], // Assuming there's a "role" property to distinguish origin
-              paint: {
-                "circle-radius": 8,
-                "circle-color": "transparent",
-                "circle-stroke-color": ["get", "color"],
-                "circle-stroke-width": 2,
-              },
-            });
-
-            // Add a layer for the destination circles (filled)
-            map.addLayer({
-              id: "destination-circles",
-              type: "circle",
-              source: "geojson-source",
-              filter: ["==", ["get", "role"], "destination"], // Assuming there's a "role" property to distinguish destination
-              paint: {
-                "circle-radius": 8,
-                "circle-color": ["get", "color"],
-              },
-            });
-          })
-          .catch((error) => {
-            console.error("Error loading GeoJSON:", error);
-          });
-      });
-
-      const secondsPerRevolution = 120;
-      const maxSpinZoom = 5;
-      const slowSpinZoom = 3;
-
-      let userInteracting = false;
-      let spinEnabled = true;
-
-      function spinGlobe() {
-        const zoom = map.getZoom();
-        if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-          let distancePerSecond = 360 / secondsPerRevolution;
-          if (zoom > slowSpinZoom) {
-            const zoomDif = (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-            distancePerSecond *= zoomDif;
-          }
-          const center = map.getCenter();
-          center.lng -= distancePerSecond;
-          map.easeTo({ center, duration: 1000, easing: (n) => n });
-        }
-      }
-
-      map.on("mousedown", () => {
-        userInteracting = true;
-      });
-
-      map.on("mouseup", () => {
-        userInteracting = false;
-        spinGlobe();
-      });
-
-      map.on("dragend", () => {
-        userInteracting = false;
-        spinGlobe();
-      });
-      map.on("pitchend", () => {
-        userInteracting = false;
-        spinGlobe();
-      });
-      map.on("rotateend", () => {
-        userInteracting = false;
-        spinGlobe();
-      });
-
-      map.on("moveend", () => {
-        spinGlobe();
-      });
-
-      spinGlobe();
-
-      window.addEventListener("resize", updateZoomLevels);
-    </script>
+    <div class="form-container" id="form-container" style="display: none">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLScpwpv8Qep3OnQSBGqRVXx53KfXIu66fSZitoTOu-fzNZrxKA/viewform?embedded=true"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        >Loading…</iframe
+      >
+      <button id="return-to-map">Return to map</button>
+    </div>
   </body>
 </html>
