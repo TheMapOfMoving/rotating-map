@@ -1,6 +1,8 @@
+// main.js
 import { map, updateZoomLevels } from "./mapInit.js";
 import { fetchGeoJSONData } from "./dataFetch.js";
 import { applyAllFilters } from "./filters.js";
+import { initAutocomplete } from "./autocomplete.js"; // Add this line
 import "./events.js";
 import "./globeSpin.js";
 
@@ -32,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
   applyAllFilters();
   updateZoomLevels();
 
+  initAutocomplete();
+
   // Add event listener for the share experience box
   document
     .getElementById("share-experience-box")
@@ -54,7 +58,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const filterCategory = mapTitle.parentElement;
 
   mapTitle.addEventListener("click", () => {
+    console.log("Map title clicked"); // Debugging statement
     filterCategory.classList.toggle("expanded");
+    console.log(filterCategory.classList.contains("expanded"));
+    console.log(window.getComputedStyle(mapInfo).display);
   });
 
   // Add event listener for the help button to toggle explanation mode
@@ -117,18 +124,4 @@ document.addEventListener("DOMContentLoaded", function () {
     mapInfo.style.display = "none";
     location.reload();
   }
-
-  // Example usage: Set initial colors
-  setCategoryTitleBackgroundColor("origin", "#ff0000");
-  setCategoryContentBackgroundColor("origin", "#00ff00");
-
-  // Add dynamic styling logic as needed
-  document.querySelectorAll(".filter-title").forEach((title) => {
-    title.addEventListener("click", () => {
-      // Example: Toggle background color on click
-      const currentColor = title.style.backgroundColor;
-      const newColor = currentColor === "rgb(255, 0, 0)" ? "#333" : "#ff0000";
-      setCategoryTitleBackgroundColor(title.id.replace("-title", ""), newColor);
-    });
-  });
 });

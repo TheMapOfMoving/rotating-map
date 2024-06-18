@@ -14,48 +14,56 @@ function addGeoJSONLayer(data) {
     feature.properties.color = getColor(feature);
   });
 
-  map.addSource("geojson-source", {
-    type: "geojson",
-    data: data,
-  });
+  if (!map.getSource("geojson-source")) {
+    map.addSource("geojson-source", {
+      type: "geojson",
+      data: data,
+    });
+  }
 
-  map.addLayer({
-    id: "route",
-    type: "line",
-    source: "geojson-source",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": ["get", "color"],
-      "line-width": 2,
-    },
-  });
+  if (!map.getLayer("route")) {
+    map.addLayer({
+      id: "route",
+      type: "line",
+      source: "geojson-source",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": ["get", "color"],
+        "line-width": 2,
+      },
+    });
+  }
 
-  map.addLayer({
-    id: "origin-circles",
-    type: "circle",
-    source: "geojson-source",
-    filter: ["==", ["get", "role"], "origin"],
-    paint: {
-      "circle-radius": 8,
-      "circle-color": "transparent",
-      "circle-stroke-color": ["get", "color"],
-      "circle-stroke-width": 2,
-    },
-  });
+  if (!map.getLayer("origin-circles")) {
+    map.addLayer({
+      id: "origin-circles",
+      type: "circle",
+      source: "geojson-source",
+      filter: ["==", ["get", "role"], "origin"],
+      paint: {
+        "circle-radius": 8,
+        "circle-color": "transparent",
+        "circle-stroke-color": ["get", "color"],
+        "circle-stroke-width": 2,
+      },
+    });
+  }
 
-  map.addLayer({
-    id: "destination-circles",
-    type: "circle",
-    source: "geojson-source",
-    filter: ["==", ["get", "role"], "destination"],
-    paint: {
-      "circle-radius": 8,
-      "circle-color": ["get", "color"],
-    },
-  });
+  if (!map.getLayer("destination-circles")) {
+    map.addLayer({
+      id: "destination-circles",
+      type: "circle",
+      source: "geojson-source",
+      filter: ["==", ["get", "role"], "destination"],
+      paint: {
+        "circle-radius": 8,
+        "circle-color": ["get", "color"],
+      },
+    });
+  }
 
   // Add click event listeners for trip components
   map.on("click", "origin-circles", function (e) {

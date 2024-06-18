@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Map of Moving</title>
-    <meta
-      name="viewport"
-      content="initial-scale=1,maximum-scale=1,user-scalable=no"
-    />
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfkF_Cq12t2QfEQCrNBocVqWp9o-Xdxfk&libraries=places"></script>
     <script type="module" src="main.js"></script>
   </head>
   <body>
@@ -53,7 +51,7 @@
         <div class="filter-column">
           <div class="filter-title" id="origin-title">Origin</div>
           <div class="filter-content" id="origin-content">
-            <input type="text" id="origin" placeholder="Search Origin..." />
+            <input type="text" id="origin" placeholder="Search origin..." />
           </div>
 
           <div class="filter-title" id="destination-title">Destination</div>
@@ -61,7 +59,7 @@
             <input
               type="text"
               id="destination"
-              placeholder="Search Destination..."
+              placeholder="Search destination..."
             />
           </div>
 
@@ -110,24 +108,22 @@
               <span id="age-max-label">100</span>
             </div>
           </div>
-
-          <div class="filter-title" id="time-period-title">Time Period</div>
-          <div class="filter-content" id="time-period-content">
-            <input
-              type="range"
-              id="time-period"
-              min="1997"
-              max="2024"
-              step="1"
-            />
-            <div class="slider-labels">
-              <span>1997</span>
-              <span>2024</span>
+          <div class="filter-category hidden-time-period">
+            <div class="filter-title" id="time-period-title">Time Period</div>
+            <div class="filter-content" id="time-period-content">
+              <input
+                type="range"
+                id="time-period"
+                min="1997"
+                max="2024"
+                step="1"
+              />
+              <div class="slider-labels">
+                <span>1997</span>
+                <span>2024</span>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="filter-column">
           <div class="filter-title" id="transport-title">Transport</div>
           <div class="filter-content" id="transport-content">
             <label
@@ -165,7 +161,8 @@
               Walking</label
             >
           </div>
-
+        </div>
+        <div class="filter-column">
           <div class="filter-title" id="environmental-title">Environmental</div>
           <div class="filter-content" id="environmental-content">
             <label
@@ -291,7 +288,7 @@
       </div>
       <div class="filter-category help-category">
         <h3>?</h3>
-        <p>Help and information</p>
+        <p class="help-info">Help and information</p>
       </div>
     </div>
 

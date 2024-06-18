@@ -1,3 +1,4 @@
+/* styles.css */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
 
 body {
@@ -17,7 +18,7 @@ body {
 }
 
 .hidden-content {
-  display: none;
+  display: none !important;
   background-color: black;
   color: white;
   padding: 10px;
@@ -33,7 +34,7 @@ body {
 }
 
 .expanded .hidden-content {
-  display: block;
+  display: block !important;
 }
 
 .expanded h2 {
@@ -42,6 +43,10 @@ body {
 
 .expanded .arrow-down {
   transform: rotate(-135deg);
+}
+
+.expanded #map-title {
+  border-radius: 5px 5px 0 0;
 }
 
 .contact-link {
@@ -80,7 +85,6 @@ body {
   color: #fff;
   padding: 5px;
   border-radius: 3px 3px 0 0;
-  /*margin-bottom: 5px;*/
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 0; /* Ensure no margin between title and content */
@@ -90,7 +94,8 @@ body {
   background-color: #f9f9f9;
   padding: 10px;
   border-radius: 0 0 3px 3px;
-  margin-top: 0; /* Ensure no margin between title and content */
+  margin-bottom: 20px;
+  /*margin-top: 0; /* Ensure no margin between title and content */
   border: 1px solid #ddd; /* Add border to content to create a unified box look */
 }
 
@@ -307,8 +312,53 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .help-category {
-  margin-top: auto;
-  margin-bottom: 20px;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 2vw;
+}
+
+.help-category h3 {
+  display: inline-block;
+  width: 2vw;
+  height: 2vw;
+  line-height: 30px;
+  font-size: 1.2em;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0;
+  transition: background-color 0.2s, color 0.2s; /* Smooth transition for hover effect */
+}
+
+.help-category .help-info {
+  display: none;
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  top: 50%;
+  left: 40px; 
+  transform: translateY(-50%);
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.help-category:hover h3 {
+  background-color: black;
+  color: white;
+}
+
+.help-category:hover .help-info {
+  display: block;
+  background-color: black;
+  color: white;
+  border-color: black;
 }
 
 .form-container {
@@ -351,7 +401,8 @@ input[type="range"]::-moz-range-thumb {
   background-color: #f4f4f4;
   border: 2px solid black;
   border-radius: 7px;
-  padding: 5px;
+  padding-left: 1.2vw;
+  padding-right: 1.2vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -398,8 +449,8 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .explanation-mode #map .explanation-text {
-  width: 40vw; /* Adjust as needed */
-  height: 40vw; /* Adjust as needed */
+  width: 40vw;
+  height: 40vw;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -437,17 +488,16 @@ input[type="range"]::-moz-range-thumb {
   margin: 0;
   padding: 20px;
   text-align: left;
-  /*margin-top: 100px;*/
   margin-bottom: 1px;
   min-height: 30vw;
   font-size: 1em;
 }
 
 #share-experience-box-explain {
-  width: calc(100% - 20px); /* Full width inside the padding of the side menu */
+  width: calc(100% - 20px);
   height: 20px;
   border-radius: 5px;
-  margin-bottom: 1px; /* Shorten the distance between the filters box and the experience box */
+  margin-bottom: 1px;
 }
 
 .explanation-mode .filter-category h3,
@@ -526,4 +576,57 @@ input[type="range"]::-moz-range-thumb {
 
 #social-content {
   border: 1px solid #F7960B;
+}
+
+#origin-title {
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px 3px 0 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+#origin-content {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 0 0 3px 3px;
+  margin-top: 0;
+  border: 1px solid #ddd;
+}
+
+.hidden-time-period {
+  display: none;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  #map {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .side-menu {
+    width: 100%;
+    height: 50vh;
+    order: 1;
+  }
+
+  .filter-column {
+    flex: 1 1 100%;
+  }
+
+  .help-category {
+    width: 20vw;
+  }
+
+  .help-category h3 {
+    width: 20vw;
+    height: 20vw;
+  }
 }

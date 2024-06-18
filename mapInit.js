@@ -16,9 +16,10 @@ map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
 
 function updateZoomLevels() {
   const width = window.innerWidth;
+  const height = window.innerHeight;
   let minZoom;
 
-  if (width < 800) {
+  if (width < 800 || height < 600) {
     minZoom = 1.0;
     map.setMaxZoom(20);
   } else if (width < 1000) {
