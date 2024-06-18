@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>The Map Of Moving</title>
+    <title>The Map of Moving</title>
     <meta
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
@@ -19,65 +19,76 @@
     <div id="map"></div>
     <div class="side-menu">
       <div class="filter-category" style="padding: 0; background-color: black">
-        <h2 style="margin: 0">THE MAP OF MOVING <i class="arrow-down"></i></h2>
+        <h2 id="map-title" style="margin: 0">
+          THE MAP OF MOVING <i class="arrow-down"></i>
+        </h2>
+        <div id="map-info" class="hidden-content">
+          <p>
+            <i>The Map of Moving </i> is a community-based digital platform—a
+            website working both for smartphones and desktops—where everyone is
+            able to share and discover migration experiences of all kinds. We
+            have the opportunity to tell our story, from the origin to the
+            current location, with every stop in between, the reason for
+            migrating, the time period, and the transport used. The goal is to
+            share who we are, where we come from, and how our identity is
+            shaped.
+          </p>
+          <p>
+            This project was born to address the loss of personal stories
+            regarding migration in official reports. The goal is to act as a
+            public archive of individual experiences that, until now, had
+            nowhere to be expressed.
+          </p>
+          <p>
+            If you want to know more about the project, or want to send us some
+            feedback,
+            <a href="mailto:imonfort@elisava.net" class="contact-link"
+              >you can contact us here</a
+            >.
+          </p>
+        </div>
       </div>
+
       <div class="filter-row">
         <div class="filter-column">
-          <div class="filter-category">
-            <h3>Origin</h3>
+          <div class="filter-title" id="origin-title">Origin</div>
+          <div class="filter-content" id="origin-content">
             <input type="text" id="origin" placeholder="Search Origin..." />
           </div>
-          <div class="filter-category">
-            <h3>Destination</h3>
+
+          <div class="filter-title" id="destination-title">Destination</div>
+          <div class="filter-content" id="destination-content">
             <input
               type="text"
               id="destination"
               placeholder="Search Destination..."
             />
           </div>
-          <div class="filter-category">
-            <h3>Gender</h3>
+
+          <div class="filter-title" id="gender-title">Gender</div>
+          <div class="filter-content" id="gender-content">
             <label
-              ><input
-                type="checkbox"
-                id="gender-woman"
-                name="gender"
-                value="woman"
-              />
+              ><input type="checkbox" name="gender" value="woman" />
               Woman</label
             ><br />
             <label
-              ><input
-                type="checkbox"
-                id="gender-man"
-                name="gender"
-                value="man"
-              />
-              Man</label
+              ><input type="checkbox" name="gender" value="man" /> Man</label
             ><br />
             <label
-              ><input
-                type="checkbox"
-                id="gender-non-normative"
-                name="gender"
-                value="non-normative"
-              />
+              ><input type="checkbox" name="gender" value="non-normative" />
               Non-normative</label
             ><br />
             <label
-              ><input
-                type="checkbox"
-                id="gender-other"
-                name="gender"
-                value="other" /><input
+              ><input type="checkbox" name="gender" value="other" /><input
                 type="text"
                 id="gender-other-text"
                 placeholder="Other"
                 style="width: 60%"
             /></label>
           </div>
-          <div class="filter-category">
-            <h3>Age</h3>
+
+          <div class="filter-title" id="age-title">Age</div>
+          <div class="filter-content" id="age-content">
             <input
               type="range"
               id="age-min"
@@ -99,8 +110,9 @@
               <span id="age-max-label">100</span>
             </div>
           </div>
-          <div class="filter-category">
-            <h3>Time Period</h3>
+
+          <div class="filter-title" id="time-period-title">Time Period</div>
+          <div class="filter-content" id="time-period-content">
             <input
               type="range"
               id="time-period"
@@ -113,8 +125,11 @@
               <span>2024</span>
             </div>
           </div>
-          <div class="filter-category">
-            <h3>Transport</h3>
+        </div>
+
+        <div class="filter-column">
+          <div class="filter-title" id="transport-title">Transport</div>
+          <div class="filter-content" id="transport-content">
             <label
               ><input type="checkbox" name="transport" value="plane" />
               Plane</label
@@ -150,10 +165,9 @@
               Walking</label
             >
           </div>
-        </div>
-        <div class="filter-column">
-          <div class="filter-category">
-            <h3>Environmental</h3>
+
+          <div class="filter-title" id="environmental-title">Environmental</div>
+          <div class="filter-content" id="environmental-content">
             <label
               ><input type="checkbox" name="environmental" value="pollution" />
               Pollution</label
@@ -187,8 +201,9 @@
               Temperature rise</label
             >
           </div>
-          <div class="filter-category">
-            <h3>Political</h3>
+
+          <div class="filter-title" id="political-title">Political</div>
+          <div class="filter-content" id="political-content">
             <label
               ><input type="checkbox" name="political" value="gender" />
               Gender</label
@@ -222,8 +237,9 @@
               Nationality</label
             >
           </div>
-          <div class="filter-category">
-            <h3>Economic</h3>
+
+          <div class="filter-title" id="economic-title">Economic</div>
+          <div class="filter-content" id="economic-content">
             <label
               ><input type="checkbox" name="economic" value="job" /> Job /
               Higher wages</label
@@ -249,8 +265,9 @@
               Better healthcare</label
             >
           </div>
-          <div class="filter-category">
-            <h3>Social</h3>
+
+          <div class="filter-title" id="social-title">Social</div>
+          <div class="filter-content" id="social-content">
             <label
               ><input type="checkbox" name="social" value="family" />
               Family</label
@@ -265,6 +282,7 @@
           </div>
         </div>
       </div>
+
       <div class="trip-details" style="display: none"></div>
       <div class="filter-category" id="share-experience-box">
         <h3 id="share-experience">
@@ -276,6 +294,7 @@
         <p>Help and information</p>
       </div>
     </div>
+
     <div class="form-container" id="form-container" style="display: none">
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLScpwpv8Qep3OnQSBGqRVXx53KfXIu66fSZitoTOu-fzNZrxKA/viewform?embedded=true"

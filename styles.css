@@ -1,4 +1,3 @@
-/* styles.css */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
 
 body {
@@ -17,7 +16,41 @@ body {
   position: relative;
 }
 
+.hidden-content {
+  display: none;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  padding-right: 70px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+.expanded .hidden-content {
+  display: block;
+}
+
+.expanded h2 {
+  border-radius: 5px 5px 0 0;
+}
+
+.expanded .arrow-down {
+  transform: rotate(-135deg);
+}
+
+.contact-link {
+  text-decoration: underline;
+  color: white;
+}
+
 .side-menu {
+  position: relative;
   width: 30%;
   background-color: #f4f4f4;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
@@ -34,11 +67,31 @@ body {
 }
 
 .filter-category {
+  position: relative;
   margin-bottom: 20px;
   padding: 10px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-title {
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px 3px 0 0;
+  /*margin-bottom: 5px;*/
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0; /* Ensure no margin between title and content */
+}
+
+.filter-content {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 0 0 3px 3px;
+  margin-top: 0; /* Ensure no margin between title and content */
+  border: 1px solid #ddd; /* Add border to content to create a unified box look */
 }
 
 .filter-row {
@@ -295,7 +348,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 #share-experience-box {
-  background-color:#f4f4f4 ;
+  background-color: #f4f4f4;
   border: 2px solid black;
   border-radius: 7px;
   padding: 5px;
@@ -333,4 +386,144 @@ input[type="range"]::-moz-range-thumb {
 
 #share-experience-box:hover .plus-icon {
   color: white;
+}
+
+.explanation-mode #map {
+  position: relative;
+  z-index: 1;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.explanation-mode #map .explanation-text {
+  width: 40vw; /* Adjust as needed */
+  height: 40vw; /* Adjust as needed */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.explanation-mode .side-menu {
+  position: relative;
+  z-index: 2;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.explanation-mode .explanation-text {
+  font-size: 1.35em;
+  font-family: "Inter", sans-serif;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 100px;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.explanation-mode .filter-category {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.explanation-mode .side-menu .filter-category .explanation-text {
+  margin: 0;
+  padding: 20px;
+  text-align: left;
+  /*margin-top: 100px;*/
+  margin-bottom: 1px;
+  min-height: 30vw;
+  font-size: 1em;
+}
+
+#share-experience-box-explain {
+  width: calc(100% - 20px); /* Full width inside the padding of the side menu */
+  height: 20px;
+  border-radius: 5px;
+  margin-bottom: 1px; /* Shorten the distance between the filters box and the experience box */
+}
+
+.explanation-mode .filter-category h3,
+.explanation-mode .filter-category input,
+.explanation-mode .filter-category label {
+  display: none;
+}
+
+.explanation-mode #map-title {
+  background-color: #d9d9d9;
+  color: black;
+}
+
+#map-title {
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.explanation-mode .trip-details {
+  display: none;
+}
+
+#map-info {
+  display: none;
+}
+
+.explanation-mode #map-info {
+  display: block;
+}
+
+.cross-button {
+  position: absolute;
+  bottom: 0.5vw;
+  left: 1vw;
+  font-size: 3em;
+  cursor: pointer;
+  color: black;
+  background: none;
+  border: none;
+}
+
+#environmental-title {
+  background-color: #31BCBC;
+}
+
+#environmental-content {
+  border: 1px solid #31BCBC;
+}
+
+#political-title {
+  background-color: #E5387A;
+}
+
+#political-content {
+  border: 1px solid #E5387A;
+}
+
+#economic-title {
+  background-color: #5058EF;
+}
+
+#economic-content {
+  border: 1px solid #5058EF;
+}
+
+#social-title {
+  background-color: #F7960B;
+}
+
+#social-content {
+  border: 1px solid #F7960B;
 }
